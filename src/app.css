@@ -1,0 +1,82 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	--zeta-green: #31e5c1;
+	--zeta-green-highlight: #34fed7;
+	--zeta-green_check: rgb(55, 136, 124);
+	--zeta-dark-green: #248576;
+	--dmt-magenta: #2b294c;
+	--dmt-dark-violet: #2e1740;
+}
+
+body {
+	background: rgb(29, 28, 45);
+	background: linear-gradient(180deg, rgba(29, 28, 45, 1) 0%, rgba(73, 71, 101, 1) 100%);
+	background-size: cover;
+	background-attachment: fixed;
+	color: #29b3bf;
+	margin: 0 !important;
+	@apply select-none max-h-screen;
+}
+
+html {
+	margin: 0 !important;
+}
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	@apply bg-slate-400 rounded;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	@apply bg-slate-800 rounded;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.btn {
+	@apply p-2 shadow-sm rounded-md hover:opacity-80 hover:shadow-none w-full cursor-pointer;
+}
+.btn:active {
+	transform: scale(0.9);
+}
+.fluid {
+	max-width: 100%;
+	height: auto;
+}
+.alert {
+	position: relative;
+	padding: 1rem 1rem;
+	margin-bottom: 1rem;
+	border: 1px solid transparent;
+	border-radius: 0.25rem;
+}
+.alert-success {
+	color: #0f5132;
+	background: #d1e7dd;
+}
+.alert-info {
+	color: #055160;
+	background: #cff4fc;
+}
+.alert-danger {
+	color: #842029;
+	background: #f8d7d8;
+}
+.walletconnect-connect__buttons__wrapper {
+	overflow-y: auto;
+}
+.walletconnect-qrcode__image {
+	width: 75% !important;
+}
