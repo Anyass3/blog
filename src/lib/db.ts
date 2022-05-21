@@ -36,6 +36,8 @@ export const get = async (title: string) => {
 	if (!item) return;
 	return { content: item.value.body, title: item.value.title, pathname: item.key };
 };
-const del = async (title: string) => {
+export const del = async (title: string) => {
 	await db.del(title);
 };
+
+export const search = async (query: string) => {};

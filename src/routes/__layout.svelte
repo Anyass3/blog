@@ -8,8 +8,8 @@
 	// if (browser) store.dispatch('startConnectome');
 </script>
 
-<main class="min-h-screen flex justify-center">
-	<div class="w-[min(55rem,100%)] p-3">
+<main class="flex justify-center">
+	<div class="w-[min(55rem,100%)] p-3 min-h-screen flex flex-col">
 		<Nav />
 		<slot />
 	</div>

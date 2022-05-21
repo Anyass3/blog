@@ -11,11 +11,7 @@ const config = {
 	}),
 
 	kit: {
-		adapter: adapter({
-			pages: 'build/frontend',
-			assets: 'build/frontend',
-			fallback: null
-		})
+	adapter: adapter({ precommpress: true, out: 'dmt-hook' })
 	},
 	vite: {
 		resolve: {

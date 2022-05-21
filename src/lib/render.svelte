@@ -54,8 +54,11 @@
 	};
 
 	$: if (shadowroot) {
-		shadowroot.innerHTML = style + Markdown(content || $_content);
+		shadowroot.textContent = highlightCode(Markdown(content || $_content));
 	}
 </script>
 
-<div class="h-full overflow-y-auto" use:shadow />
+<!-- <div class="h-full overflow-y-auto" use:shadow /> -->
+<code class="select-all">
+	{Markdown(content || $_content)}
+</code>
