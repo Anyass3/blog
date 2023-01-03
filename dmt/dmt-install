@@ -23,14 +23,12 @@ echo 'Not Successful'
 else
     # before build scripts
     node dmt/editBase.cjs
-    node dmt/editAppHtml.cjs
 
     # build
     npm run build
 
     # after build scripts
     # if [ -f dmt/editManifest.cjs ]; then node dmt/editManifest.cjs; fi
-    node dmt/resetAppHtml.cjs
     node dmt/resetBase.cjs
 
     node fix-path.cjs
@@ -53,15 +51,10 @@ else
     cp "$SOURCE/dmt/variables/package.json" .
 
     echo "
-    import dmt from 'dmt/common';
     import { handler } from './handler';
-    const { express } = dmt;
-
-    const app = express();
 
     export function init(program) {
-    app.use(handler);
-    return { express: app };
+    return { express: handler };
     }
     ">index.js
     
