@@ -21,11 +21,12 @@ echo ''
 echo 'Not Successful'
 
 else
+    pnpm i
     # before build scripts
     node dmt/editBase.cjs
 
     # build
-    npm run build
+    pnpm build
 
     # after build scripts
     # if [ -f dmt/editManifest.cjs ]; then node dmt/editManifest.cjs; fi
@@ -62,7 +63,7 @@ else
       ln -s ../_dmt_deps .
     fi
 
-    npm install
+    pnpm install
 
     dmt restart
 
