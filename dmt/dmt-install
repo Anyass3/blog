@@ -32,7 +32,7 @@ else
     # if [ -f dmt/editManifest.cjs ]; then node dmt/editManifest.cjs; fi
     node dmt/resetBase.cjs
 
-    node fix-path.cjs
+    node dmt/fix-path.cjs
 
 
     # dmt apps dir
