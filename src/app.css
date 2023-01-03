@@ -1,23 +1,16 @@
+@import 'dmt-gui-kit/colors.css';
 /* Write your global styles here, in PostCSS syntax */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-	--zeta-green: #31e5c1;
-	--zeta-green-highlight: #34fed7;
-	--zeta-green_check: rgb(55, 136, 124);
-	--zeta-dark-green: #248576;
-	--dmt-magenta: #2b294c;
-	--dmt-dark-violet: #2e1740;
-}
 
 body {
 	background: rgb(29, 28, 45);
 	background: linear-gradient(180deg, rgba(29, 28, 45, 1) 0%, rgba(73, 71, 101, 1) 100%);
 	background-size: cover;
 	background-attachment: fixed;
-	color: #29b3bf;
+	color: var(--dmt-cyan);
 	margin: 0 !important;
 	@apply select-none max-h-screen;
 }
@@ -46,7 +39,7 @@ html {
 }
 
 .btn {
-	@apply p-2 shadow-sm rounded-md hover:opacity-80 hover:shadow-none w-full cursor-pointer;
+	@apply p-2 shadow-sm rounded-md hover:opacity-80 hover:shadow-none cursor-pointer;
 }
 .btn:active {
 	transform: scale(0.9);
