@@ -52,10 +52,9 @@ else
     cp "$SOURCE/dmt/variables/package.json" .
 
     echo "
-    import { handler } from './handler';
-
-    export function init(program) {
-    return { express: handler };
+    export async function init(program) {
+      const { handler } = await import('./handler.js');
+      return { express: handler };
     }
     ">index.js
     
