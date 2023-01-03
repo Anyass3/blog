@@ -3,10 +3,9 @@
 	import store from '$lib/store';
 	import metamask from '$lib/metamask-fox.svg';
 	import CopyIcon from '$icons/CopyIcon.svelte';
-	import { copyToClipboard } from 'dmt-gui-kit/utils';
 
 	import * as E from '@anyass3/encryption';
-	import { snackbar } from 'dmt-gui-kit';
+	import { snackbar, copyToClipboard } from 'dmt-gui-kit';
 
 	const { navHeight, metamaskPublicKey, token } = store.state;
 
