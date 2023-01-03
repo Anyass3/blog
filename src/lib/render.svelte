@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 	import store from '$lib/store';
-	import Markdown, { highlightCode, setHljs, getLang, setLang } from 'markdown-hljs';
+	import Markdown from 'markdown-hljs';
 	export let content = '';
 	const _content = store.g('content');
 	export let codeStyle = '/hljs/github-dark.css';
-	let shadowroot;
+	let shadowroot: ShadowRoot;
 	$: style = codeStyle
 		? `<link rel="stylesheet" href=${codeStyle} />
 		
@@ -49,16 +49,17 @@
 	`
 		: '';
 
-	const shadow = (node) => {
+	const shadow = (node: HTMLDivElement) => {
 		shadowroot = node.attachShadow({ mode: 'open' });
 	};
 
 	$: if (shadowroot) {
-		shadowroot.textContent = highlightCode(Markdown(content || $_content));
+		shadowroot.innerHTML = style+Markdown(content || $_content)
+		// console.log(shadowroot.textContent)
 	}
 </script>
 
-<!-- <div class="h-full overflow-y-auto" use:shadow /> -->
-<code class="select-all">
-	{Markdown(content || $_content)}
-</code>
+<div class="h-full overflow-y-auto" use:shadow />
+<!-- <code class="select-all">
+	{@html Markdown(content || $_content)}
+</code> -->

@@ -2,31 +2,37 @@
 	import Render from '$lib/render.svelte';
 	import Writer from '$lib/writer.svelte';
 	import store from '$lib/store';
-	import { enhance } from '$lib/form';
+	import { snackbar } from 'dmt-gui-kit';
 	import { goto } from '$app/navigation';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
+
+	const {encryptedToken} =data
 	let render = false;
-	const { title, content, snack } = store.state;
-	const result = (data) => {
-		snack.show('ken du yow!');
+	const { title, content, navHeight } = store.state;
+	const result = (data: { pathname: string; }) => {
+		snackbar.show('ken du yow!'); // wolof langauge
 		console.log(data);
 		$content = '';
 		$title = '';
 		goto('/' + data.pathname);
 	};
-	const error = (data) => {
-		snack.show('amna lu hew de!');
+	const error = (data: any) => {
+		snackbar.show('amna lu hew de!'); // wolof langauge
 		console.error(data);
 	};
 	const publish = async () => {
 		if (!$title || !$content) {
-			snack.show('Abu completal form be');
+			snackbar.show('Abu completal form be yy'); // wolof langauge
 			return;
 		}
 		try {
 			const res = await fetch('/write', {
 				method: 'post',
 				headers: {
-					accept: 'application/json'
+					accept: 'application/json',
+					'x-encrypted-token': encryptedToken
 				},
 				body: JSON.stringify({ title: $title, content: $content })
 			});
@@ -49,10 +55,10 @@
 </script>
 
 <div class="w-full h-full flex flex-col">
-	<div class="sticky top-0 flex justify-between gap-5">
+	<div class="sticky flex justify-between gap-5" style="top: {$navHeight}px;">
 		<button
 			on:click={() => (render = !render)}
-			class="btn p-[0.25rem!important] bg-gray-600 text-xl w-[min-content!important]  uppercase text-center "
+			class="btn p-[0.25rem!important] bg-gray-600 text-xl w-[min-content]  uppercase text-center "
 			>{render ? 'markdown' : 'preview'}</button
 		>
 		<div class="flex gap-2">
@@ -64,7 +70,7 @@
 			/>
 			<button
 				on:click={publish}
-				class="btn p-[0.25rem!important] bg-gray-700 text-xl w-[min-content!important]  uppercase text-center "
+				class="btn p-[0.25rem!important] bg-gray-700 text-xl w-[min-content]  uppercase text-center "
 				>publish</button
 			>
 		</div>
