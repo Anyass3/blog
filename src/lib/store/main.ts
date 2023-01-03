@@ -1,23 +1,19 @@
-import { writable } from 'svelte/store';
 
-function createSnackStore() {
-	const { subscribe, update, set } = writable(null);
-
-	return {
-		subscribe,
-		show: (value: string, timeout = 3000) =>
-			update(() => {
-				setTimeout(() => set(null), timeout);
-				return value;
-			})
-	};
-}
-
+import * as E from '@anyass3/encryption';
 export default {
-	noStore: ['snack'],
 	state: {
 		content: '',
 		title: '',
-		snack: createSnackStore()
+		navHeight: undefined,
+		isAuthenticated: false,
+		metamaskPublicKey: undefined,
+		publicKey: undefined,
+		signPublicKey: undefined,
+		token: undefined
+	},
+	actions:{
+		async metamaskPublicKey({commit}){
+			commit('metamaskPublicKey',await E.getMetaMaskPublicKey())
+		},
 	}
 };

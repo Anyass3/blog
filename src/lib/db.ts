@@ -2,6 +2,7 @@ import Hyperbee from 'hyperbee';
 import Hypercore from 'hypercore';
 
 const core = new Hypercore('./.db');
+
 core.ready().then(() => {
 	console.log({ dbKey: core.key });
 });
@@ -31,11 +32,13 @@ export const put = async (title: string, body: string) => {
 	await db.put(pathname, content);
 	return pathname;
 };
+
 export const get = async (title: string) => {
 	const item = await db.get(title);
 	if (!item) return;
 	return { content: item.value.body, title: item.value.title, pathname: item.key };
 };
+
 export const del = async (title: string) => {
 	await db.del(title);
 };

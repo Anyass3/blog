@@ -1,4 +1,4 @@
-import { dev } from '$app/env';
+import { dev } from '$app/environment';
 import { connect } from 'connectome';
 import type { Connector } from 'connectome/typings';
 
