@@ -35,7 +35,7 @@
 	bind:clientHeight={$navHeight}
 	class="w-full sticky top-0 z-50 bg-[rgb(29,28,45)] text-cyan-500 border-b-2 border-cyan-900 flex flex-col justify-center items-center"
 >
-	<div class="py-8 w-[min(55rem,100%)] flex justify-between">
+	<div class="py-8 w-[min(55rem,100%)] flex flex-wrap justify-between">
 		<div>
 			<a
 				href="{base}/"
@@ -53,7 +53,7 @@
 			{/if}
 		</div>
 		{#if !$token}
-			<div class="flex flex-col sm:flex-row gap-6">
+			<div class="flex flex-wrap gap-6">
 				<button class="btn flex gap-2 items-center" on:click={doChallenge}
 					><img src={metamask} class="w-5" alt="metamask" />Auth</button
 				>
