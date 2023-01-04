@@ -1,4 +1,3 @@
-
 import * as E from '@anyass3/encryption';
 export default {
 	state: {
@@ -11,9 +10,9 @@ export default {
 		signPublicKey: undefined,
 		token: undefined
 	},
-	actions:{
-		async metamaskPublicKey({commit}){
-			commit('metamaskPublicKey',await E.getMetaMaskPublicKey())
-		},
+	actions: {
+		async metamaskPublicKey({ commit }) {
+			commit('metamaskPublicKey', await E.getMetaMaskPublicKey());
+		}
 	}
 };

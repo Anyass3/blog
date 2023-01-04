@@ -15,8 +15,8 @@ declare namespace App {
 			signSecretKey: Uint8Array;
 			signPublicKeyHex: string;
 			signSecretKeyHex: string;
-		},
-		keyPair:{
+		};
+		keyPair: {
 			privateKey: Uint8Array;
 			publicKey: Uint8Array;
 			privateKeyHex: string;
@@ -26,7 +26,5 @@ declare namespace App {
 	// interface PageData {}
 	// interface Platform {}
 }
-
-
 
 // import { SignKeyPair } from '@anyass3/encryption';

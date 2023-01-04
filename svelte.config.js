@@ -15,7 +15,7 @@ const config = {
 			$store: resolve('src/store'),
 			$icons: resolve('node_modules/svelte-feather-icons/src/icons')
 		},
-	adapter: adapter({ precommpress: true, out: 'dmt-hook' })
+		adapter: adapter({ precommpress: true, out: 'dmt-hook' })
 	}
 };
 

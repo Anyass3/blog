@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
 	background: rgb(29, 28, 45);
 	background: linear-gradient(180deg, rgba(29, 28, 45, 1) 0%, rgba(73, 71, 101, 1) 100%);

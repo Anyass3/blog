@@ -3,11 +3,6 @@
 
 	import '../app.css';
 	import Nav from '$lib/nav.svelte';
-	import type { LayoutData } from './$types';
-
-	export let data: LayoutData;
-	console.log(data)
-	// if (browser) store.dispatch('startConnectome');
 </script>
 
 <main class="flex flex-col justify-center items-center min-h-screen">
