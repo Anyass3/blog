@@ -39,14 +39,14 @@
 		<div>
 			<a
 				href="{base}/"
-				class:active={$page.url.pathname == '/'}
+				class:active={$page.url.pathname == base+'/'}
 				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center "
 				>blogs</a
 			>
 			{#if $token}
 				<a
 					href="{base}/write"
-					class:active={$page.url.pathname == '/write'}
+					class:active={$page.url.pathname == base+'/write'}
 					class="btn text-xl w-[min-content]  border-2  p-[0.5rem!important] border-transparent uppercase text-center "
 					>write</a
 				>
