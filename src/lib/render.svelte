@@ -1,12 +1,14 @@
 <script lang="ts">
 	import store from '$lib/store';
 	import Markdown from 'markdown-hljs';
+	import { base } from '$app/paths';
+
 	export let content = '';
 	const _content = store.g('content');
 	export let codeStyle = '/hljs/github-dark.css';
 	let shadowroot: ShadowRoot;
 	$: style = codeStyle
-		? `<link rel="stylesheet" href=${codeStyle} />
+		? `<link rel="stylesheet" href=${base + codeStyle} />
 		
 		<style>
 			*{
@@ -54,7 +56,7 @@
 	};
 
 	$: if (shadowroot) {
-		shadowroot.innerHTML = style+Markdown(content || $_content)
+		shadowroot.innerHTML = style + Markdown(content || $_content);
 		// console.log(shadowroot.textContent)
 	}
 </script>

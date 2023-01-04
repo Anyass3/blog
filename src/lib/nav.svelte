@@ -3,6 +3,7 @@
 	import store from '$lib/store';
 	import metamask from '$lib/metamask-fox.svg';
 	import CopyIcon from '$icons/CopyIcon.svelte';
+	import { base } from '$app/paths';
 
 	import * as E from '@anyass3/encryption';
 	import { snackbar, copyToClipboard } from 'dmt-gui-kit';
@@ -14,14 +15,17 @@
 
 	const doChallenge = async () => {
 		try {
-		const [signPublicKey,publicKey,signedToken]=(await E.decrypt($page.data.encryptedData)).split('::') as [string,string,string];
-		store.dispatch('publicKey',publicKey)
-		store.dispatch('signPublicKey',signPublicKey)
-		console.log({signedToken})
-		$token=E.verifySignature(signedToken,signPublicKey)
-		console.log({$token,signPublicKey,publicKey})
+			const [signPublicKey, publicKey, signedToken] = (
+				await E.decrypt($page.data.encryptedData)
+			).split('::') as [string, string, string];
+			
+			store.dispatch('publicKey', publicKey);
+			store.dispatch('signPublicKey', signPublicKey);
+			console.log({ signedToken });
+			$token = E.verifySignature(signedToken, signPublicKey);
+			console.log({ $token, signPublicKey, publicKey });
 		} catch (error) {
-			snackbar.show((typeof error=='string')?error:(error as any).message)
+			snackbar.show(typeof error == 'string' ? error : (error as any).message);
 		}
 	};
 	$: console.log($page.data);
@@ -34,14 +38,14 @@
 	<div class="py-8 w-[min(55rem,100%)] flex justify-between">
 		<div>
 			<a
-				href="/"
+				href="{base}/"
 				class:active={$page.url.pathname == '/'}
 				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center "
 				>blogs</a
 			>
 			{#if $token}
 				<a
-					href="/write"
+					href="{base}/write"
 					class:active={$page.url.pathname == '/write'}
 					class="btn text-xl w-[min-content]  border-2  p-[0.5rem!important] border-transparent uppercase text-center "
 					>write</a
@@ -50,7 +54,6 @@
 		</div>
 		{#if !$token}
 			<div class="flex flex-col sm:flex-row gap-6">
-
 				<button class="btn flex gap-2 items-center" on:click={doChallenge}
 					><img src={metamask} class="w-5" alt="metamask" />Auth</button
 				>
@@ -58,7 +61,9 @@
 					<button
 						class="btn flex gap-2 items-center"
 						on:click={() => store.dispatch('metamaskPublicKey')}
-						><img src={metamask} class="w-5" alt="metamask" /><span class="whitespace-nowrap">Public Key</span></button
+						><img src={metamask} class="w-5" alt="metamask" /><span class="whitespace-nowrap"
+							>Public Key</span
+						></button
 					>
 				{:else}
 					<button

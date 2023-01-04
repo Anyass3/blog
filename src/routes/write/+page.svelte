@@ -5,18 +5,19 @@
 	import { snackbar } from 'dmt-gui-kit';
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
+	import { base } from '$app/paths';
 
 	export let data: PageData;
 
-	const {encryptedToken} =data
+	const { encryptedToken } = data;
 	let render = false;
 	const { title, content, navHeight } = store.state;
-	const result = (data: { pathname: string; }) => {
+	const result = (data: { pathname: string }) => {
 		snackbar.show('ken du yow!'); // wolof langauge
 		console.log(data);
 		$content = '';
 		$title = '';
-		goto('/' + data.pathname);
+		goto(base+'/' + data.pathname);
 	};
 	const error = (data: any) => {
 		snackbar.show('amna lu hew de!'); // wolof langauge
@@ -28,7 +29,7 @@
 			return;
 		}
 		try {
-			const res = await fetch('/write', {
+			const res = await fetch(base+'/write', {
 				method: 'post',
 				headers: {
 					accept: 'application/json',
