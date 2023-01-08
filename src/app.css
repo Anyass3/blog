@@ -24,17 +24,17 @@ html {
 
 /* Track */
 ::-webkit-scrollbar-track {
-	@apply bg-slate-400 rounded;
+	@apply bg-slate-800 rounded;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	@apply bg-slate-800 rounded;
+	@apply bg-slate-500 rounded;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	background: #555;
+	@apply bg-slate-400;
 }
 
 .btn {
