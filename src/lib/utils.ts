@@ -1,3 +1,4 @@
+import { base } from "$app/paths";
 
 type Opts =
 	{
@@ -17,7 +18,7 @@ export const uploadXHR = (
 ) => {
 	return new Promise<FileResponse>(
 		(resolve, reject: (value: Record<string, any> | undefined) => void) => {
-			const url = '/file/upload';
+			const url = base + '/file/upload';
 			const xhr = new XMLHttpRequest();
 			if (instance) instance(xhr);
 			const formData = new FormData();
