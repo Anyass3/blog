@@ -1,10 +1,18 @@
 import * as E from '@anyass3/encryption';
 export default {
+	storeType:{
+		publicKey: 'sessionPersistantStore',
+		signPublicKey: 'sessionPersistantStore',
+		token: 'sessionPersistantStore',
+		content: 'sessionPersistantStore',
+		title: 'sessionPersistantStore',
+		cover: 'sessionPersistantStore',
+	},
 	state: {
+		cover: {},
 		content: '',
 		title: '',
 		navHeight: undefined,
-		isAuthenticated: false,
 		metamaskPublicKey: undefined,
 		publicKey: undefined,
 		signPublicKey: undefined,
