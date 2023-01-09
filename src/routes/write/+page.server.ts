@@ -23,6 +23,6 @@ export const actions: Actions = {
 
 		const pathname = await db.put(data.title, data.content, data.cover);
 		// console.log({pathname})
-		return new Response(JSON.stringify({ pathname }));
+		return { pathname }
 	}
 }
