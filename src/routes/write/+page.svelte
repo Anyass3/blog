@@ -4,81 +4,73 @@
 	import store from '$lib/store';
 	import { snackbar } from 'dmt-gui-kit';
 	import { goto } from '$app/navigation';
+	import * as E from '@anyass3/encryption';
 	import type { PageData } from './$types';
 	import { base } from '$app/paths';
+	import { enhance } from '$app/forms';
 
 	export let data: PageData;
 
-	const { encryptedToken } = data;
 	let render = false;
-	const { title, content, navHeight } = store.state;
-	const result = (data: { pathname: string }) => {
+	const { title, content, navHeight, publicKey } = store.state;
+	const success = (data?: { pathname: string }) => {
 		snackbar.show('ken du yow!'); // wolof langauge
 		console.log(data);
 		$content = '';
 		$title = '';
-		goto(base+'/' + data.pathname);
+		if (data) goto(base + '/' + data.pathname);
 	};
 	const error = (data: any) => {
 		snackbar.show('amna lu hew de!'); // wolof langauge
 		console.error(data);
 	};
-	const publish = async () => {
-		if (!$title || !$content) {
-			snackbar.show('Abu completal form be yy'); // wolof langauge
-			return;
+	const encryptFormData= async(data: FormData)=>{
+		for(const key of data.keys()){
+			data.set(key, await E.encrypt(data.get(key) as string, $publicKey))
 		}
-		try {
-			const res = await fetch(base+'/write', {
-				method: 'post',
-				headers: {
-					accept: 'application/json',
-					'x-encrypted-token': encryptedToken
-				},
-				body: JSON.stringify({ title: $title, content: $content })
-			});
-			console.log('res', res);
-
-			const data = await res.json();
-			if (res.ok) {
-				result(data);
-			} else {
-				error(data);
-			}
-		} catch (e) {
-			if (error) {
-				error(null);
-			} else {
-				throw e;
-			}
-		}
-	};
+	}
 </script>
 
-<div class="w-full h-full flex flex-col">
-	<div class="sticky flex justify-between gap-5" style="top: {$navHeight}px;">
+<div class="w-full flex flex-col" style="height: {(globalThis.innerHeight-$navHeight)*0.86}px;">
+	<div class="flex justify-between pb-2" >
 		<button
-			on:click={() => (render = !render)}
-			class="btn p-[0.25rem!important] bg-gray-600 text-xl w-[min-content]  uppercase text-center "
+			on:click|preventDefault={() => (render = !render)}
+			class="btn bg-gray-600 text-xl w-[min-content]  uppercase text-center "
 			>{render ? 'markdown' : 'preview'}</button
 		>
-		<div class="flex gap-2">
-			<input
-				bind:value={$title}
-				placeholder="Title"
-				class="focus:outline-none max-w-full w-[25rem] p-[0.25rem!important] flex-grow placeholder:text-gray-700 bg-slate-500 rounded text-center"
-				type="text"
-			/>
-			<button
-				on:click={publish}
-				class="btn p-[0.25rem!important] bg-gray-700 text-xl w-[min-content]  uppercase text-center "
-				>publish</button
-			>
-		</div>
 	</div>
-	{#if render}
-		<Render />
-	{:else}
-		<Writer />
-	{/if}
+	<form
+		method="POST"
+		action="?/publish"
+		use:enhance={ async ({ form, data, action, cancel }) => {
+			console.log('formData', Object.fromEntries(data.entries()));
+			if (!$title || !$content) {
+				snackbar.show('Abu completal form be yy'); // wolof langauge
+				return cancel();
+			}
+			await encryptFormData(data)
+			console.log('encryptedFormData', Object.fromEntries(data.entries()));
+			// `form` is the `<form>` element
+			// `data` is its `FormData` object
+			// `action` is the URL to which the form is posted
+			// `cancel()` will prevent the submission
+
+			return async ({ result, update }) => {
+				console.log({ result, update });
+				result;
+				if (result.type === 'success') success(result.data);
+				else error(result.data || result.error);
+				// `result` is an `ActionResult` object
+				// `update` is a function which triggers the logic that would be triggered if this callback wasn't set
+			};
+		}}
+		class="w-full h-full flex flex-col"
+	>
+	<!-- <input type="text" name="encrypted_dummy" hidden value={data.encryptedDummy} /> -->
+		{#if render}
+			<Render />
+		{:else}
+			<Writer encryptedDummy={data.encryptedDummy}/>
+		{/if}
+	</form>
 </div>
