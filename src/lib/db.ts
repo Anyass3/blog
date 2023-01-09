@@ -51,7 +51,7 @@ export const state = async () => {
 		key,
 		value: { title, cover }
 	} of blogsDb.createReadStream()) {
-		state.push({ pathname: key, title, cover });
+		state.unshift({ pathname: key, title, cover });
 	}
 	// console.log({ db: state });
 	return state || [];
