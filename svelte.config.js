@@ -9,9 +9,6 @@ const config = {
 	}),
 
 	kit: {
-		paths: {
-			base: '/blog'
-		},
 		csrf: { checkOrigin: false },
 		alias: {
 			$store: resolve('src/store'),
