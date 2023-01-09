@@ -6,14 +6,14 @@ import { dev, building } from '$app/environment';
 import RAM from 'random-access-memory';
 import { randomBytes } from 'crypto'
 
-export interface Result<T>{
-  seq: number;
-  key: string;
-  value: T
+export interface Result<T> {
+	seq: number;
+	key: string;
+	value: T
 }
 
-export type BlogResult=Result<Record<'title' | 'content' | 'cover', string>>
-export type FileResult=Result<Buffer>
+export type BlogResult = Result<Record<'title' | 'content' | 'cover', string>>
+export type FileResult = Result<Buffer>
 
 const makeRam = (filename) => {
 	// filename will be one of: data, bitfield, tree, signatures, key, secret_key
@@ -30,7 +30,7 @@ core.ready().then(() => {
 	console.log({ dbKey: core.key });
 });
 
-export const db=new Hyperbee(core, {
+export const db = new Hyperbee(core, {
 	keyEncoding: 'utf-8',
 	valueEncoding: 'json'
 });
@@ -49,9 +49,9 @@ export const state = async () => {
 	let state = [];
 	for await (const {
 		key,
-		value: { title }
+		value: { title, cover }
 	} of blogsDb.createReadStream()) {
-		state.push({ pathname: key, title });
+		state.push({ pathname: key, title, cover });
 	}
 	// console.log({ db: state });
 	return state || [];
@@ -69,7 +69,7 @@ export const put = async (title: string, content: string, cover?: string) => {
 export const get = async (title: string) => {
 	const item: BlogResult = await blogsDb.get(title);
 	if (!item) return;
-	return { content: item.value.content, title: item.value.title, pathname: item.key };
+	return { ...item.value, pathname: item.key };
 };
 
 export const del = async (title: string) => {
@@ -84,7 +84,7 @@ export const saveFile = async (blob: Blob) => {
 	return { pathname }
 }
 
-export const getFile = async (pathname: string):Promise<FileResult> => {
+export const getFile = async (pathname: string): Promise<FileResult> => {
 	return await files.get(pathname);
 }
 
