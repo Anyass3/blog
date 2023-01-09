@@ -9,6 +9,10 @@ const config = {
 	}),
 
 	kit: {
+		paths: {
+			base: '/blog'
+		},
+		csrf: { checkOrigin: false },
 		alias: {
 			$store: resolve('src/store'),
 			$icons: resolve('node_modules/svelte-feather-icons/src/icons')
