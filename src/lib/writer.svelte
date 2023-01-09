@@ -63,7 +63,7 @@
 			name="title"
 			bind:value={$title}
 			placeholder="Enter your blog title here"
-			class="focus:outline-none max-w-full text-6xl flex-grow placeholder:text-gray-700 bg-transparent"
+			class="focus:outline-none w-full text-5xl flex-grow placeholder:text-gray-700 bg-transparent"
 			type="text"
 		/>
 	</div>
