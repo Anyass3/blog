@@ -7,6 +7,12 @@
 
 	import * as E from '@anyass3/encryption';
 	import { snackbar, copyToClipboard } from 'dmt-gui-kit';
+	import { noop } from 'svelte/internal';
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch=createEventDispatcher()
+
+	export let isAuthenticated=false;
 
 	const { navHeight, metamaskPublicKey, token } = store.state;
 
@@ -15,44 +21,61 @@
 
 	const doChallenge = async () => {
 		try {
-			const [signPublicKey, publicKey, signedToken] = (
-				await E.decrypt($page.data.encryptedData)
-			).split('::') as [string, string, string];
-			
+			const res = await fetch(base + '/auth', {
+				method: 'post',
+				headers: {
+					accept: 'application/json',
+					'x-action': 'login'
+				}
+			});
+			const { encryptedData } = (await res.json()) || {};
+			const decryptedData = await E.decrypt(encryptedData).catch(noop);
+			if (!decryptedData) return dispatch('auth',false);
+
+			const [signPublicKey, publicKey, signedToken] = decryptedData.split('::') as [
+				string,
+				string,
+				string
+			];
+			dispatch('auth',true)
+			$token = E.verifySignature(signedToken, signPublicKey);
 			store.dispatch('publicKey', publicKey);
 			store.dispatch('signPublicKey', signPublicKey);
-			console.log({ signedToken });
-			$token = E.verifySignature(signedToken, signPublicKey);
-			console.log({ $token, signPublicKey, publicKey });
+
 		} catch (error) {
+			dispatch('auth',false)
+			console.trace(error)
 			snackbar.show(typeof error == 'string' ? error : (error as any).message);
 		}
 	};
-	$: console.log($page.data);
 </script>
 
 <div
 	bind:clientHeight={$navHeight}
 	class="w-full sticky top-0 z-50 bg-[rgb(29,28,45)] text-cyan-500 border-b-2 border-cyan-900 flex flex-col justify-center items-center"
 >
-	<div class="py-8 w-[min(55rem,100%)] flex flex-wrap justify-between">
+	<div
+		class="{$page.url.pathname == base + '/write'
+			? 'py-4'
+			: 'py-8'} w-[min(55rem,100%)] flex flex-wrap justify-between"
+	>
 		<div>
 			<a
 				href="{base}/"
-				class:active={$page.url.pathname == base+'/'}
+				class:active={$page.url.pathname == base + '/'}
 				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center "
 				>blogs</a
 			>
-			{#if $token}
+			{#if isAuthenticated}
 				<a
 					href="{base}/write"
-					class:active={$page.url.pathname == base+'/write'}
+					class:active={$page.url.pathname == base + '/write'}
 					class="btn text-xl w-[min-content]  border-2  p-[0.5rem!important] border-transparent uppercase text-center "
 					>write</a
 				>
 			{/if}
 		</div>
-		{#if !$token}
+		{#if !isAuthenticated}
 			<div class="flex flex-wrap gap-6">
 				<button class="btn flex gap-2 items-center" on:click={doChallenge}
 					><img src={metamask} class="w-5" alt="metamask" />Auth</button
