@@ -1,20 +1,22 @@
-# create-svelte
+# BLOG
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+For more info and demo checkout the **[playground](https://abu.zetaseek.com/blog/playground)**
 
-## Creating a project
+## Dependancies
 
-If you're seeing this, you've probably already done this step. Congrats!
+> NOTE [dmt-gui-kit](https://github.com/dmtsys/dmt-gui-kit) dependancy need to be built and installed locally
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
+```json
+"dmt-gui-kit": "link:~/Projects/dmt-gui-kit/package"
 ```
 
-> Note: the `@next` is temporary
+## Install on DMT
+
+simply run
+
+```bash
+pnpm dmt-install #npm,yarn etc
+```
 
 ## Developing
 
@@ -35,8 +37,4 @@ To create a production version of your app:
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
-
-# blog
+You can preview the production build with `npm run preview`
