@@ -8,7 +8,7 @@ export const load: PageLoad = async ({ parent }) => {
 	const { isAuthenticated } = await parent();
 	const token = store.state.token.get();
 	const publicKey = store.state.publicKey.get();
-	if (!(isAuthenticated || token)) throw redirect(303, '/');
+	if (!isAuthenticated || !token || !publicKey) throw redirect(303, '/');
 	const encryptedDummy = browser ? E.encrypt(E.random(), publicKey) : '';
 	return {
 		encryptedDummy
