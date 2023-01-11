@@ -1,15 +1,18 @@
 <script lang="ts">
-	import store from '$lib/store';
-	import Markdown from 'markdown-hljs';
 	import { base } from '$app/paths';
+	import { getHTML, timeDelta } from './utils';
 
-	export let content = '';
-	const _content = store.g('content');
+	export let content: string;
+	export let cover: string;
+	export let title: string;
+	export let contentType: 'markdown' | 'html' = 'markdown';
+	export let date = undefined as unknown as number;
+
 	export let codeStyle = '/hljs/github-dark.css';
 	let shadowroot: ShadowRoot;
+
 	$: style = codeStyle
 		? `<link rel="stylesheet" href=${base + codeStyle} />
-		
 		<style>
 			*{
 				user-select:text;
@@ -53,15 +56,21 @@
 
 	const shadow = (node: HTMLDivElement) => {
 		shadowroot = node.attachShadow({ mode: 'open' });
+		render();
 	};
 
-	$: if (shadowroot) {
-		shadowroot.innerHTML = style + Markdown(content || $_content);
-		// console.log(shadowroot.textContent)
-	}
+	const render = async () => {
+		shadowroot.innerHTML = style + (contentType == 'markdown' ? await getHTML(content) : content);
+	};
 </script>
 
-<div class="h-full overflow-y-auto" use:shadow />
-<!-- <code class="select-all">
-	{@html Markdown(content || $_content)}
-</code> -->
+<div class="w-full h-full flex flex-col gap-4 overflow-y-auto">
+	<h1 class="text-5xl sm:text-6xl font-bold">{title}</h1>
+	{#if date}
+		<p class="text-base font-light">Published: <span use:timeDelta={{ date }} /></p>
+	{/if}
+	{#if cover}
+		<img src={cover} alt={title} />
+	{/if}
+	<div class="" use:shadow />
+</div>
