@@ -11,7 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (locals) clearAuthSession(session);
 
-	Object.assign(event.locals, locals||{})
+	Object.assign(event.locals, locals || {});
 
 	// console.log('resolving... event');
 	const response = await resolve(event);
