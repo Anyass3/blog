@@ -9,10 +9,11 @@
 	import { snackbar, copyToClipboard } from 'dmt-gui-kit';
 	import { noop } from 'svelte/internal';
 	import { createEventDispatcher } from 'svelte';
+	import { onMount } from 'svelte/internal';
 
-	const dispatch=createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-	export let isAuthenticated=false;
+	export let isAuthenticated = false;
 
 	const { navHeight, metamaskPublicKey, token } = store.state;
 
@@ -30,24 +31,26 @@
 			});
 			const { encryptedData } = (await res.json()) || {};
 			const decryptedData = await E.decrypt(encryptedData).catch(noop);
-			if (!decryptedData) return dispatch('auth',false);
+			if (!decryptedData) return dispatch('auth', false);
 
 			const [signPublicKey, publicKey, signedToken] = decryptedData.split('::') as [
 				string,
 				string,
 				string
 			];
-			dispatch('auth',true)
+			dispatch('auth', true);
 			$token = E.verifySignature(signedToken, signPublicKey);
 			store.dispatch('publicKey', publicKey);
 			store.dispatch('signPublicKey', signPublicKey);
-
 		} catch (error) {
-			dispatch('auth',false)
-			console.trace(error)
+			dispatch('auth', false);
+			console.trace(error);
 			snackbar.show(typeof error == 'string' ? error : (error as any).message);
 		}
 	};
+	onMount(() => {
+		if (isAuthenticated && !$token) doChallenge();
+	});
 </script>
 
 <div
@@ -57,7 +60,7 @@
 	<div
 		class="{$page.url.pathname == base + '/write'
 			? 'py-4'
-			: 'py-8'} w-[min(55rem,100%)] flex flex-wrap justify-between"
+			: 'py-8'} w-[min(55rem,100%)] flex flex-wrap justify-between items-center"
 	>
 		<div>
 			<a
@@ -68,12 +71,19 @@
 			>
 			{#if isAuthenticated}
 				<a
-					href="{base}/write"
-					class:active={$page.url.pathname == base + '/write'}
+					href="{base}/new"
+					class:active={$page.url.pathname == base + '/new'}
 					class="btn text-xl w-[min-content]  border-2  p-[0.5rem!important] border-transparent uppercase text-center "
-					>write</a
+					>new</a
 				>
 			{/if}
+
+			<a
+				href="{base}/playground"
+				class:active={$page.url.pathname == base + '/playground'}
+				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center "
+				>playground</a
+			>
 		</div>
 		{#if !isAuthenticated}
 			<div class="flex flex-wrap gap-6">
