@@ -14,13 +14,12 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^1.1.0",
-		"@sveltejs/kit": "1.0.7",
+		"@sveltejs/kit": "1.0.11",
 		"@types/cookie": "^0.5.1",
 		"@types/node": "^17.0.23",
 		"@typescript-eslint/eslint-plugin": "^5.27.0",
 		"@typescript-eslint/parser": "^5.27.0",
 		"autoprefixer": "10.4.13",
-		"connectome": "^0.2.6",
 		"eslint": "^8.16.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
@@ -40,11 +39,11 @@
 	"dependencies": {
 		"@anyass3/encryption": "github:Anyass3/Encryption",
 		"@lukeed/uuid": "^2.0.0",
-		"connectome": "^0.2.6",
 		"cookie": "^0.4.2",
 		"dmt-gui-kit": "link:~/Projects/dmt-gui-kit/package",
 		"hyperbee": "^2.2.0",
 		"hypercore": "^10.5.3",
+		"liquidjs": "^10.4.0",
 		"markdown-hljs": "^0.1.11",
 		"random-access-memory": "^6.1.0",
 		"stores-x": "^0.0.872"
