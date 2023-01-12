@@ -4,7 +4,6 @@ import Hypercore from 'hypercore';
 import path from 'path';
 import { dev, building } from '$app/environment';
 import RAM from 'random-access-memory';
-import { randomBytes } from 'crypto';
 
 export interface Result<T> {
 	seq: number;
@@ -86,6 +85,7 @@ export const del = async (title: string) => {
 
 export const saveFile = async (blob: Blob) => {
 	const buf = Buffer.from(await blob.arrayBuffer());
+	const { randomBytes } = await import('crypto');
 	const pathname = randomBytes(36).toString('hex');
 	await files.put(pathname, buf);
 	return { pathname };
