@@ -21,6 +21,10 @@
 		copyToClipboard($metamaskPublicKey, 'Copied publickey from metamask to clipboard');
 
 	const doChallenge = async () => {
+		if (!E.isMetaMask) {
+			snackbar.show('Metamask must be available!', { color: 'danger' });
+			return;
+		}
 		try {
 			const res = await fetch(base + '/auth', {
 				method: 'post',
@@ -57,11 +61,7 @@
 	bind:clientHeight={$navHeight}
 	class="w-full sticky top-0 z-50 bg-[rgb(29,28,45)] text-cyan-500 border-b-2 border-cyan-900 flex flex-col justify-center items-center"
 >
-	<div
-		class="{$page.url.pathname == base + '/write'
-			? 'py-4'
-			: 'py-8'} w-[min(55rem,100%)] flex flex-wrap justify-between items-center"
-	>
+	<div class="py-4 lg:py-6 w-[min(55rem,100%)] flex flex-wrap justify-between items-center">
 		<div>
 			<a
 				href="{base}/"
@@ -93,7 +93,13 @@
 				{#if !$metamaskPublicKey}
 					<button
 						class="btn flex gap-2 items-center"
-						on:click={() => store.dispatch('metamaskPublicKey')}
+						on:click={() => {
+							if (!E.isMetaMask) {
+								snackbar.show('Metamask must be available!', { color: 'danger' });
+								return;
+							}
+							store.dispatch('metamaskPublicKey');
+						}}
 						><img src={metamask} class="w-5" alt="metamask" /><span class="whitespace-nowrap"
 							>Public Key</span
 						></button
