@@ -39,8 +39,9 @@
 		}
 	};
 	const uploadImage = async (file: File) => {
+		const encryptedDummy = await E.encrypt(E.random(), $publicKey);
 		const res = await uploadXHR(file, {
-			encryptedDummy: data.encryptedDummy,
+			encryptedDummy: encryptedDummy,
 			onProgress: (e) => {
 				progress = (e.loaded * 100.0) / e.total ?? 0;
 			}

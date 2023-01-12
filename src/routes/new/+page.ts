@@ -7,11 +7,8 @@ import { base } from '$app/paths';
 
 export const load: PageLoad = async ({ parent }) => {
 	const { isAuthenticated } = await parent();
-	const token = store.state.token.get();
-	const publicKey = store.state.publicKey.get();
-	if (!isAuthenticated || !token || !publicKey) throw redirect(303, base + '/');
-	const encryptedDummy = browser ? E.encrypt(E.random(), publicKey) : '';
+	if (!isAuthenticated) throw redirect(303, base + '/');
 	return {
-		encryptedDummy
+		// 
 	};
 };
