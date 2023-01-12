@@ -4,6 +4,7 @@ import Hypercore from 'hypercore';
 import path from 'path';
 import { dev, building } from '$app/environment';
 import RAM from 'random-access-memory';
+import { v4 as uuidV4 } from '@lukeed/uuid';
 
 export interface Result<T> {
 	seq: number;
@@ -53,7 +54,7 @@ export const files = db.sub('files', {
 });
 
 export const state = async () => {
-	const state: { pathname: string; title: string; cover: string; publishedAt: number }[] = [];
+	let state: { pathname: string; title: string; cover: string; publishedAt: number }[] = [];
 	for await (const {
 		key,
 		value: { title, cover, publishedAt }
@@ -85,8 +86,7 @@ export const del = async (title: string) => {
 
 export const saveFile = async (blob: Blob) => {
 	const buf = Buffer.from(await blob.arrayBuffer());
-	const { randomBytes } = await import('crypto');
-	const pathname = randomBytes(36).toString('hex');
+	const pathname = uuidV4();
 	await files.put(pathname, buf);
 	return { pathname };
 };
@@ -95,4 +95,4 @@ export const getFile = async (pathname: string): Promise<FileResult> => {
 	return await files.get(pathname);
 };
 
-export const search = async (query: string) => {};
+// export const search = async (query: string) => {};

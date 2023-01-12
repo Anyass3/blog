@@ -1,0 +1,12 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+/dmt-hook
+/static
+.env
+.env.*
+!.env.example
+.db
+pnpm-lock.yaml
