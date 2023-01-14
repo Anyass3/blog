@@ -16,9 +16,8 @@
 		url = URL.createObjectURL(file);
 		$cover.pathname = url;
 		$cover.filename = file.name;
+		$cover.progress=100;
 	};
-
-	let progress = 0;
 </script>
 
 <svelte:head>
@@ -44,7 +43,6 @@
 		<Render content={$content} title={$title} cover={url} />
 	{:else}
 		<Writer
-			{progress}
 			on:file={(ev) => fakeUploadImage(ev.detail)}
 			state={{ ...pstore.state, navHeight }}
 		/>

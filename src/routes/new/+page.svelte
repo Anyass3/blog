@@ -12,9 +12,6 @@
 	import { noop } from 'svelte/internal';
 	import Spinner from '$lib/spinner.svelte';
 
-	export let data: PageData;
-
-	let progress = 0;
 	let isPublishing = false;
 	let mdHtml: HTMLDivElement;
 	const { title, content, navHeight, publicKey, cover, writeMode } = store.state;
@@ -24,10 +21,10 @@
 	const success = (data?: { pathname: string }) => {
 		snackbar.show('ken du yow!'); // wolof langauge
 		console.log(data);
-		$content = '';
-		$title = '';
-		$cover = '';
-		if (data) goto(base + '/' + data.pathname);
+		// $content = '';
+		// $title = '';
+		// $cover = {};
+		// if (data) goto(base + '/' + data.pathname);
 	};
 	const error = (data: any) => {
 		snackbar.show('amna lu hew de!'); // wolof langauge
@@ -43,7 +40,7 @@
 		const res = await uploadXHR(file, {
 			encryptedDummy: encryptedDummy,
 			onProgress: (e) => {
-				progress = (e.loaded * 100.0) / e.total ?? 0;
+				$cover.progress = (e.loaded * 100.0) / e.total ?? 0;
 			}
 		}).catch(noop);
 		if (res) {
@@ -54,7 +51,7 @@
 				return snackbar.show('Cover image uploaded');
 			}
 		}
-		progress = 0;
+		$cover.progress = 0;
 		snackbar.show('Cover image upload failed', { color: 'danger' });
 	};
 
@@ -107,7 +104,7 @@
 			}}
 			class="w-full h-full flex flex-col"
 		>
-			<Writer {progress} on:file={(ev) => uploadImage(ev.detail)} state={store.state} />
+			<Writer on:file={(ev) => uploadImage(ev.detail)} state={store.state} />
 
 			<div class="flex absolute bottom-2 left-0">
 				<button

@@ -5,7 +5,6 @@
 	const { content, title, cover, navHeight } = state;
 
 	const dispatch = createEventDispatcher();
-	export let progress: number;
 	let coverImageElement: HTMLInputElement;
 	let topHeight: number;
 
@@ -28,16 +27,16 @@
 		<div class="flex gap-4">
 			<button on:click|preventDefault={addCoverImage} class="flex btn bg-gray-700 relative">
 				<span
-					>{progress && progress < 100
+					>{$cover.progress && $cover.progress < 100
 						? 'Uploading cover'
-						: (progress == 100 ? 'Uploaded' : 'Add') + ' Cover Image'}</span
+						: ($cover.progress == 100 ? 'Uploaded' : 'Add') + ' Cover Image'}</span
 				>
 				<span
 					class="absolute bottom-0 left-0 h-1 bg-green-500 rounded"
-					style="width: {progress}%"
+					style="width: {$cover.progress}%"
 				/>
 			</button>
-			{#if progress == 100}
+			{#if $cover.progress == 100}
 				<p class="p-2">{$cover.filename}</p>
 			{/if}
 		</div>
