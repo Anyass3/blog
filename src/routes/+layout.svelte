@@ -20,7 +20,7 @@
 	{$writeMode ? 'overflow-hidden max-h-screen' : ''}"
 >
 	<Nav on:auth={onAuth} isAuthenticated={data.isAuthenticated} />
-	<div class="w-[min(55rem,100%)] px-3  sm:px-0 pt-4 flex-grow relative">
+	<div class="w-[min(55rem,100%)] px-3 lg:px-0 pt-4 flex-grow relative">
 		<slot />
 	</div>
 </main>
