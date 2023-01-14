@@ -46,6 +46,7 @@
 			$token = E.verifySignature(signedToken, signPublicKey);
 			store.dispatch('publicKey', publicKey);
 			store.dispatch('signPublicKey', signPublicKey);
+			location.reload();
 		} catch (error) {
 			dispatch('auth', false);
 			console.trace(error);
