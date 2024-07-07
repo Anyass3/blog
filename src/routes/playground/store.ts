@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import StoreX from 'stores-x';
 const content = `# what can I do?  well for now:
@@ -41,9 +42,9 @@ my **[github profile]({{ github_profile }})**
 
 > I will add more later, like twitter etc.
 
-### DMT meetup
+### some gleam lang video
 
-{% embed https://www.youtube.com/watch?v=Crrdjzt3CK0&t=128s %}
+{% embed https://youtu.be/8rCgnKHUUVA?si=l1hj7MMA_3nW7m9o&t=128s %}
 
 ### Some hole-punch meetup
 

@@ -1,8 +1,7 @@
-import * as db from '$lib/db';
+import * as db from '$lib/db.js';
 import { error } from '@sveltejs/kit';
-import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET = async ({ params }) => {
 	console.log('getting file...');
 
 	try {

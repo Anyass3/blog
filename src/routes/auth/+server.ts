@@ -1,9 +1,8 @@
 import { MM_PUBLIC_KEY } from '$env/static/private';
-import type { RequestHandler } from './$types';
 import * as E from '@anyass3/encryption';
-import { authSession } from '$lib/session';
+import { authSession } from '$lib/session.js';
 
-export const POST: RequestHandler = async ({ cookies, request, locals }) => {
+export const POST = async ({ cookies, request, locals }) => {
 	const action = request.headers.get('x-action');
 	const sesssionCookie = cookies.get('session')!;
 	if (action == 'login' && MM_PUBLIC_KEY) {

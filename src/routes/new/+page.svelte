@@ -3,9 +3,7 @@
 	import Writer from '$lib/writer.svelte';
 	import store from '$lib/store';
 	import { snackbar } from 'dmt-gui-kit';
-	import { goto } from '$app/navigation';
 	import * as E from '@anyass3/encryption';
-	import type { PageData } from './$types';
 	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
 	import { getHTML, truncate, uploadXHR } from '$lib/utils';
@@ -74,14 +72,14 @@
 		<div class="flex justify-between pb-2">
 			<button
 				on:click|preventDefault={() => ($writeMode = false)}
-				class="btn bg-gray-600 text-xl w-[min-content]  uppercase text-center">preview</button
+				class="btn bg-gray-600 text-xl w-[min-content] uppercase text-center">preview</button
 			>
 		</div>
 		<div class="hidden" bind:this={mdHtml} aria-label="prepare markdown html" />
 		<form
 			method="POST"
 			action="?/publish"
-			use:enhance={async ({ data, cancel }) => {
+			use:enhance={async ({ formData, cancel }) => {
 				isPublishing = true;
 				if (!$title || !$content) {
 					snackbar.show('Abu completal form be yy'); // wolof langauge
@@ -89,9 +87,9 @@
 				}
 
 				const { html, description } = await prepareHtml();
-				data.set('html', html);
-				data.set('description', description);
-				await encryptFormData(data);
+				formData.set('html', html);
+				formData.set('description', description);
+				await encryptFormData(formData);
 
 				return async ({ result }) => {
 					// @ts-ignore

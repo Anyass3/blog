@@ -3,8 +3,7 @@
 	import store from '$lib/store';
 	import '../app.css';
 	import Nav from '$lib/nav.svelte';
-	import type { PageData } from './$types';
-	export let data: PageData;
+	export let data;
 
 	const { writeMode } = store.state;
 
@@ -16,7 +15,7 @@
 </script>
 
 <main
-	class="flex flex-col justify-center items-center min-h-screen 
+	class="flex flex-col justify-center items-center min-h-screen
 	{$writeMode ? 'overflow-hidden max-h-screen' : ''}"
 >
 	<Nav on:auth={onAuth} isAuthenticated={data.isAuthenticated} />

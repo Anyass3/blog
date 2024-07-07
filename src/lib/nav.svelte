@@ -13,6 +13,8 @@
 
 	const dispatch = createEventDispatcher();
 
+	const hasMMPublicKey: boolean = $page.data.hasPublicKey;
+
 	export let isAuthenticated = false;
 
 	const { navHeight, metamaskPublicKey, token } = store.state;
@@ -67,14 +69,14 @@
 			<a
 				href="{base}/"
 				class:active={$page.url.pathname == base + '/'}
-				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center "
+				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center"
 				>blogs</a
 			>
 			{#if isAuthenticated}
 				<a
 					href="{base}/new"
 					class:active={$page.url.pathname == base + '/new'}
-					class="btn text-xl w-[min-content]  border-2  p-[0.5rem!important] border-transparent uppercase text-center "
+					class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center"
 					>new</a
 				>
 			{/if}
@@ -82,7 +84,7 @@
 			<a
 				href="{base}/playground"
 				class:active={$page.url.pathname == base + '/playground'}
-				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center "
+				class="btn text-xl w-[min-content] border-2 p-[0.5rem!important] border-transparent uppercase text-center"
 				>playground</a
 			>
 		</div>
@@ -91,33 +93,35 @@
 				<button class="btn flex gap-2 items-center" on:click={doChallenge}
 					><img src={metamask} class="w-5" alt="metamask" />Auth</button
 				>
-				{#if !$metamaskPublicKey}
-					<button
-						class="btn flex gap-2 items-center"
-						on:click={() => {
-							if (!E.isMetaMask) {
-								snackbar.show('Metamask must be available!', { color: 'danger' });
-								return;
-							}
-							store.dispatch('metamaskPublicKey');
-						}}
-						><img src={metamask} class="w-5" alt="metamask" /><span class="whitespace-nowrap"
-							>Public Key</span
-						></button
-					>
-				{:else}
-					<button
-						on:click={copyPublicKey}
-						class="btn flex gap-2 items-center active:text-green-500 active:bg-green-200"
-						><CopyIcon size="1x" /><span class="whitespace-nowrap">Public Key</span></button
-					>
+				{#if !hasMMPublicKey}
+					{#if !$metamaskPublicKey}
+						<button
+							class="btn flex gap-2 items-center"
+							on:click={() => {
+								if (!E.isMetaMask) {
+									snackbar.show('Metamask must be available!', { color: 'danger' });
+									return;
+								}
+								store.dispatch('metamaskPublicKey');
+							}}
+							><img src={metamask} class="w-5" alt="metamask" /><span class="whitespace-nowrap"
+								>Public Key</span
+							></button
+						>
+					{:else}
+						<button
+							on:click={copyPublicKey}
+							class="btn flex gap-2 items-center active:text-green-500 active:bg-green-200"
+							><CopyIcon size="1x" /><span class="whitespace-nowrap">Public Key</span></button
+						>
+					{/if}
 				{/if}
 			</div>
 		{/if}
 	</div>
 </div>
 
-<style>
+<style lang="postcss">
 	.active {
 		@apply border-slate-500;
 	}
