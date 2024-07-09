@@ -1,4 +1,4 @@
-import * as E from '@anyass3/encryption';
+import * as E from '@anyass3/encryption/web';
 export default {
 	storeType: {
 		publicKey: 'sessionPersistantStore',

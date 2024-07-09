@@ -5,7 +5,7 @@
 	import CopyIcon from '$icons/CopyIcon.svelte';
 	import { base } from '$app/paths';
 
-	import * as E from '@anyass3/encryption';
+	import * as E from '@anyass3/encryption/web';
 	import { snackbar, copyToClipboard } from 'dmt-gui-kit';
 	import { noop } from 'svelte/internal';
 	import { createEventDispatcher } from 'svelte';

@@ -9,7 +9,10 @@ const config = {
 	}),
 
 	kit: {
-	csrf: { checkOrigin: false },
+		paths: {
+			base: process.env.BASE ? `/${process.env.BASE}` : ''
+		},
+		csrf: { checkOrigin: false },
 		alias: {
 			$store: resolve('src/store'),
 			$icons: resolve('node_modules/svelte-feather-icons/src/icons')

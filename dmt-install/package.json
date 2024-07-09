@@ -1,22 +1,22 @@
 {
-    "name": "dmt",
-    "type": "module",
-    "exports": {
-        "./common": "./_dmt_deps/common/index.js",
-        "./notify": "./_dmt_deps/notify/index.js",
-        "./search": "./_dmt_deps/search/index.js",
-        "./connectome": "./_dmt_deps/connectome/index.js",
-        "./connectome-stores": "./_dmt_deps/connectome-stores/index.js"
-    },
-    "dependencies": {
-		"@anyass3/encryption": "github:Anyass3/Encryption",
-		"@lukeed/uuid": "^2.0.0",
-		"cookie": "^0.4.2",
-		"dmt-gui-kit": "link:~/Projects/dmt-gui-kit/package",
-		"hyperbee": "^2.2.0",
-		"hypercore": "^10.5.3",
-		"markdown-hljs": "^0.1.11",
-		"stores-x": "^0.0.872",
-		"random-access-memory": "^6.1.0"
-    }
+  "name": "dmt",
+  "type": "module",
+  "exports": {
+    "./common": "./_dmt_deps/common/index.js",
+    "./notify": "./_dmt_deps/notify/index.js",
+    "./search": "./_dmt_deps/search/index.js",
+    "./connectome": "./_dmt_deps/connectome/index.js",
+    "./connectome-stores": "./_dmt_deps/connectome-stores/index.js"
+  },
+  "dependencies": {
+    "@anyass3/encryption": "github:Anyass3/Encryption",
+    "@lukeed/uuid": "^2.0.0",
+    "cookie": "^0.4.2",
+    "dmt-gui-kit": "github:Anyass3/dmt-gui-kit",
+    "hyperbee": "^2.2.0",
+    "hypercore": "^10.5.3",
+    "markdown-hljs": "^0.1.11",
+    "random-access-memory": "^6.1.0",
+    "stores-x": "^0.0.872"
+  }
 }
