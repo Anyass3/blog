@@ -25,11 +25,7 @@
 			>
 				{#if cover}
 					<div class="col-span-2">
-						<img
-							class="rounded object-cover w-full aspect-square"
-							src="{base}/file/{cover}"
-							alt=""
-						/>
+						<img class="rounded object-cover w-full h-full" src="{base}/file/{cover}" alt="" />
 					</div>
 				{/if}
 				<div class="col-span-6 flex flex-col justify-between relative p-2">
