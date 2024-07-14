@@ -15,8 +15,11 @@
     "dmt-gui-kit": "github:Anyass3/dmt-gui-kit",
     "hyperbee": "^2.2.0",
     "hypercore": "^10.5.3",
+    "liquidjs": "^10.4.0",
     "markdown-hljs": "^0.1.11",
+    "nodemailer": "^6.9.14",
     "random-access-memory": "^6.1.0",
-    "stores-x": "^0.0.872"
+    "stores-x": "^0.0.872",
+    "svelte-email": "^0.0.4"
   }
 }
