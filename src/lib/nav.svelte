@@ -83,45 +83,41 @@
 
 <div
 	bind:clientHeight={$navHeight}
-	class="w-full sticky top-0 z-50 bg-[--bg] border-b-2 border-[--normal] flex flex-col justify-center items-center"
+	class="w-full sticky top-0 z-50 bg-[--bg] border-b-2 border-[--normal] flex flex-col justify-center items-center px-3 lg:px-0"
 >
 	<div
-		class="py-4 lg:py-6 w-[min(55rem,100%)] flex flex-wrap justify-between items-center font-semibold"
+		class="py-4 lg:py-6 w-[min(55rem,100%)] flex flex-wrap justify-between items-center font-semibold gap-4"
 	>
-		<div class="flex-grow flex justify-between items-center">
-			<div>
+		<div class="flex justify-between gap-6 items-center">
+			<a
+				href="{base}/"
+				class:active={$page.url.pathname == base + '/'}
+				class="btn w-[min-content] !p-2 border-transparent uppercase text-center !pl-0">blogs</a
+			>
+			{#if isLoggedIn}
 				<a
-					href="{base}/"
-					class:active={$page.url.pathname == base + '/'}
-					class="btn w-[min-content] p-[0.5rem!important] border-transparent uppercase text-center"
-					>blogs</a
+					href="{base}/new"
+					class:active={$page.url.pathname == base + '/new'}
+					class="btn w-[min-content] !p-2 border-transparent uppercase text-center">new</a
 				>
-				{#if isLoggedIn}
-					<a
-						href="{base}/new"
-						class:active={$page.url.pathname == base + '/new'}
-						class="btn w-[min-content] p-[0.5rem!important] border-transparent uppercase text-center"
-						>new</a
-					>
-				{/if}
-				<a
-					href="{base}/playground"
-					title="playground"
-					class:active={$page.url.pathname == base + '/playground'}
-					class="btn w-[min-content] p-[0.5rem!important] border-transparent uppercase text-center"
-					>play</a
-				>
-			</div>
-
+			{/if}
+			<a
+				href="{base}/playground"
+				title="playground"
+				class:active={$page.url.pathname == base + '/playground'}
+				class="btn w-[min-content] !p-2 border-transparent uppercase text-center hidden md:inline-block"
+				>play</a
+			>
+		</div>
+		<div class="flex flex-wrap gap-6 items-center flex-grow justify-end">
 			<div class="relative" use:clickOutside={() => (showSubscribeModel = false)}>
 				<button
 					on:click={() => (showSubscribeModel = !showSubscribeModel)}
-					class="btn flex gap-2 items-center">Subscribe</button
+					class="btn flex gap-2 items-center {showSubscribeModel ? 'text-[--primary]' : ''}"
+					>Subscribe</button
 				>
 				<SubscribeForm {showSubscribeModel} />
 			</div>
-		</div>
-		<div class="flex flex-wrap gap-6 items-center flex-grow justify-between md:justify-end pr-2">
 			{#if !isLoggedIn}
 				<button class="btn flex gap-2 items-center" on:click={doChallenge}
 					><img src={metamask} class="w-5" alt="metamask" />Auth</button
@@ -151,14 +147,14 @@
 				{/if}
 			{/if}
 			<button
-				class="p-2 rounded-full flex dark:hidden justify-between ml-6 md:ml-0 link-border"
+				class="p-2 rounded-full flex dark:hidden justify-between link-border"
 				on:click={() => setColorScheme('dark')}
 			>
 				<!-- <img src="{base}/dark_mode.svg" alt="dark" /> -->
 				<DarkMode />
 			</button>
 			<button
-				class="p-2 rounded-full hidden dark:flex justify-between ml-6 md:ml-0 link-border"
+				class="p-2 rounded-full hidden dark:flex justify-between link-border"
 				on:click={() => setColorScheme('light')}
 			>
 				<!-- <img src="{base}/light_mode.svg" alt="light" /> -->

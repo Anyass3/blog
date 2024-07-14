@@ -41,13 +41,13 @@ body {
 	color: theme('colors.slate.400');
 	--tw-prose-lead: theme('colors.slate.400');
 }
-.dark\:prose-dark:is(.dark *) a {
+.prose a {
 	text-decoration: none;
 	font-weight: 600;
 	border-bottom: 1px solid var(--primary);
 }
-.dark\:prose-dark:is(.dark *) a:hover,
-.dark\:prose-dark:is(.dark *) a:active {
+.prose a:hover,
+.prose a:active {
 	border-bottom: 2px solid var(--primary);
 }
 

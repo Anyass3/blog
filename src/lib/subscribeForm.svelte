@@ -25,7 +25,7 @@
 				showSubscribeModel = false;
 			};
 		}}
-		class="absolute right-0 p-2 mt-1 border-2 w-[200px] lg:w-[300px] bg-[--bg] border-[--normal] rounded shadow-lg"
+		class="absolute right-[calc(-140px+50%)] lg:right-[calc(-150px+50%)] p-2 mt-1 border-2 w-[280px] lg:w-[300px] bg-[--bg] border-[--normal] rounded shadow-lg"
 	>
 		<Input type="text" label="Name" />
 		<Input type="email" label="Email" required />
