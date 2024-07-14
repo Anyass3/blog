@@ -6,9 +6,9 @@
 	import * as E from '@anyass3/encryption';
 	import { base } from '$app/paths';
 	import { enhance } from '$app/forms';
-	import { getHTML, truncate, uploadXHR } from '$lib/utils';
-	import { noop } from 'svelte/internal';
+	import { getHTML, truncate, uploadXHR, noop } from '$lib/utils';
 	import Spinner from '$lib/spinner.svelte';
+	import { goto } from '$app/navigation';
 
 	let isPublishing = false;
 	let mdHtml: HTMLDivElement;
@@ -22,7 +22,7 @@
 		// $content = '';
 		// $title = '';
 		// $cover = {};
-		// if (data) goto(base + '/' + data.pathname);
+		if (data) goto(base + '/' + data.pathname);
 	};
 	const error = (data: any) => {
 		snackbar.show('amna lu hew de!'); // wolof langauge
@@ -38,7 +38,7 @@
 		const res = await uploadXHR(file, {
 			encryptedDummy: encryptedDummy,
 			onProgress: (e) => {
-				$cover.progress = (e.loaded * 100.0) / e.total ?? 0;
+				$cover.progress = (e.loaded * 100.0) / e.total || 0;
 			}
 		}).catch(noop);
 		if (res) {
@@ -72,10 +72,10 @@
 		<div class="flex justify-between pb-2">
 			<button
 				on:click|preventDefault={() => ($writeMode = false)}
-				class="btn bg-gray-600 text-xl w-[min-content] uppercase text-center">preview</button
+				class="btn link-border text-xl w-[min-content] uppercase text-center">preview</button
 			>
 		</div>
-		<div class="hidden" bind:this={mdHtml} aria-label="prepare markdown html" />
+		<div class="hidden" bind:this={mdHtml} aria-label="prepare markdown html"></div>
 		<form
 			method="POST"
 			action="?/publish"
@@ -107,7 +107,7 @@
 			<div class="flex absolute bottom-2 left-0">
 				<button
 					disabled={isPublishing}
-					class="btn bg-gray-700 text-xl w-[min-content] uppercase text-center flex gap-1"
+					class="btn link-border text-xl w-[min-content] uppercase text-center flex gap-1"
 				>
 					{#if isPublishing}
 						<Spinner class="self-center h-6 w-6 p-0 fill-current animate-spin duration-75" />
@@ -121,7 +121,7 @@
 	<div class="relative">
 		<button
 			on:click|preventDefault={() => ($writeMode = true)}
-			class="btn bg-gray-600 text-xl w-[min-content] uppercase text-center sticky"
+			class="btn link-border text-xl w-[min-content] uppercase text-center sticky"
 			style="top: {$navHeight}px;"
 			>write
 		</button>

@@ -27,4 +27,5 @@ declare namespace App {
 	// interface Platform {}
 }
 
+type CustomWindow = Window & typeof globalThis & { setColorScheme: () => void };
 // import { SignKeyPair } from '@anyass3/encryption';

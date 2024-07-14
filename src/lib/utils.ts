@@ -14,7 +14,7 @@ interface FileResponse {
 
 export const uploadXHR = (file: File, { onProgress, instance, encryptedDummy }: Opts) => {
 	return new Promise<FileResponse>(
-		(resolve, reject: (value: Record<string, any> | undefined) => void) => {
+		(resolve, reject: (value: Record<string, string | number> | undefined) => void) => {
 			const url = base + '/file/upload';
 			const xhr = new XMLHttpRequest();
 			if (instance) instance(xhr);
@@ -51,7 +51,7 @@ export function timeDelta(node: HTMLElement, { ago = true, date = 0 } = {} as ti
 	const datetime = new Date(date);
 	let timeoutId: NodeJS.Timeout;
 	function setTimeDelta() {
-		let nextInterval = null;
+		let nextInterval: number | null = null;
 		const now = new Date();
 		let seconds = ((now.getTime() - datetime.getTime()) * (ago ? 1 : -1)) / 1000; //in seconds
 		let expired = false;
@@ -130,3 +130,28 @@ export const getHTML = async (content: string) => {
 	const rendered = lqEngine.parseAndRenderSync(content);
 	return Markdown(rendered);
 };
+
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const noop = (..._args: unknown[]) => { };
+
+
+export const clickOutside = <F extends () => void>(node: HTMLElement, fn: F) => {
+	const isOutside = (e: Event) => {
+		if (node && !node.contains(e.target as Node) && !e.defaultPrevented) {
+			fn()
+		}
+	}
+	document.body.addEventListener("click", isOutside, true)
+	document.body.addEventListener("focus", isOutside, true)
+	return {
+		destroy() {
+			document.body.removeEventListener("click", isOutside, true)
+			document.body.removeEventListener("focus", isOutside, true)
+		}
+	}
+}
+
+export const getWindow = (): CustomWindow => {
+	return (window || globalThis) as CustomWindow;
+}

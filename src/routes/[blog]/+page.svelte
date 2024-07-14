@@ -14,10 +14,10 @@
 </script>
 
 <svelte:head>
-	<title>{data.title} | DMT Blog</title>
+	<title>{data.title} | Abu's Blog</title>
 	<meta name="description" content={data.description} />
 	<meta property="og:url" content={$page.url.href} />
-	<meta property="og:title" content="{data.title} | DMT Blog" />
+	<meta property="og:title" content="{data.title} | Abu's Blog" />
 	<meta
 		property="og:image"
 		content={data.cover ? `${base}/file/${data.cover}` : $page.url.origin + base + '/favicon.png'}

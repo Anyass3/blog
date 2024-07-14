@@ -16,12 +16,12 @@
 	<meta property="og:image" content={$page.url.origin + base + '/favicon.png'} />
 </svelte:head>
 
-<div class="w-full h-full gap-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+<div class="w-full h-full gap-4 grid grid-cols-1 md:grid-cols-2">
 	{#each data.blogs as { title, pathname, cover, publishedAt }}
 		<div>
 			<a
 				href="{base}/{pathname}"
-				class="bg-gray-900 grid grid-cols-8 gap-4 relative rounded transition-all ease-in-out duration-300 scale-[.99] group hover:scale-100 hover:shadow-lg"
+				class="grid grid-cols-8 gap-4 relative rounded transition-all ease-in-out duration-300 scale-[.99] group hover:scale-100 shadow-lg dark:hover:shadow-slate-800 link-border"
 			>
 				{#if cover}
 					<div class="col-span-2">
@@ -45,7 +45,7 @@
 						>
 					</p>
 					<p class="text-xs pt-3">
-						Published: <span use:timeDelta={{ date: publishedAt }} />
+						Published: <span use:timeDelta={{ date: publishedAt }}></span>
 					</p>
 				</div>
 			</a>

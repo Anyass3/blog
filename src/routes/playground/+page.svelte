@@ -16,7 +16,7 @@
 		url = URL.createObjectURL(file);
 		$cover.pathname = url;
 		$cover.filename = file.name;
-		$cover.progress=100;
+		$cover.progress = 100;
 	};
 </script>
 
@@ -35,16 +35,13 @@
 	<div class="flex justify-between pb-2">
 		<button
 			on:click|preventDefault={() => ($writeMode = !$writeMode)}
-			class="btn bg-gray-600 text-xl w-[min-content]  uppercase text-center "
+			class="btn link-border text-xl w-[min-content] uppercase text-center"
 			>{!$writeMode ? 'write' : 'preview'}</button
 		>
 	</div>
 	{#if !$writeMode}
 		<Render content={$content} title={$title} cover={url} />
 	{:else}
-		<Writer
-			on:file={(ev) => fakeUploadImage(ev.detail)}
-			state={{ ...pstore.state, navHeight }}
-		/>
+		<Writer on:file={(ev) => fakeUploadImage(ev.detail)} state={{ ...pstore.state, navHeight }} />
 	{/if}
 </div>

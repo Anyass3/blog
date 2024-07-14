@@ -1,4 +1,4 @@
-import { HOME } from '$env/static/private';
+import * as $penv from '$env/static/private'
 import Hyperbee from 'hyperbee';
 import Hypercore from 'hypercore';
 import path from 'path';
@@ -24,6 +24,11 @@ export type PutOpts = {
 	cover?: string;
 };
 
+export type Subscriber = {
+	email: string;
+	name: string;
+};
+
 const makeRam = (filename) => {
 	// filename will be one of: data, bitfield, tree, signatures, key, secret_key
 	// the data file will contain all your data concatenated.
@@ -32,7 +37,7 @@ const makeRam = (filename) => {
 	return new RAM();
 };
 
-const core = new Hypercore(building || dev ? makeRam : path.join(HOME, '/.dmt-here/.db'));
+const core = new Hypercore(building || dev ? ($penv.DB_PATH || makeRam) : path.join($penv.HOME, '/.dmt-here/.db'));
 
 core.ready().then(() => {
 	console.log({ dbKey: core.key });
@@ -48,13 +53,18 @@ export const blogsDb = db.sub('blogs', {
 	valueEncoding: 'json'
 });
 
+export const subscribersDb = db.sub('subscribers', {
+	keyEncoding: 'utf-8',
+	valueEncoding: 'json'
+});
+
 export const files = db.sub('files', {
 	keyEncoding: 'utf-8',
 	valueEncoding: 'binary'
 });
 
 export const state = async () => {
-	let state: { pathname: string; title: string; cover: string; publishedAt: number }[] = [];
+	const state: { pathname: string; title: string; cover: string; publishedAt: number }[] = [];
 	for await (const {
 		key,
 		value: { title, cover, publishedAt }
@@ -96,3 +106,25 @@ export const getFile = async (pathname: string): Promise<FileResult> => {
 };
 
 // export const search = async (query: string) => {};
+
+export const getSubscribers = async () => {
+	const subscribers: Subscriber[] = [];
+	for await (const { key, value } of subscribersDb.createReadStream()) {
+		subscribers.push({ email: key, name: value.name });
+	}
+	return subscribers;
+}
+
+export const saveSubscriber = async (subscriber: Subscriber) => {
+	await subscribersDb.put(subscriber.email, subscriber);
+}
+
+export const delSubscriber = async (email: string) => {
+	await subscribersDb.del(email);
+}
+
+export const getSubscriber = async (email: string) => {
+	const { value } = await subscribersDb.get(email);
+
+	return value;
+}

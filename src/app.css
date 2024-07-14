@@ -4,19 +4,52 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	margin: 0 !important;
+	--primary: theme('colors.sky.500');
+	--imp: theme('colors.slate.900');
+	--normal: theme('colors.slate.500');
+	--bg: theme('colors.white');
+}
+
+html.dark {
+	--primary: theme('colors.sky.500');
+	--imp: theme('colors.slate.200');
+	--normal: theme('colors.slate.400');
+	--bg: theme('colors.slate.900');
+}
+
 body {
-	background: rgb(29, 28, 45);
-	background: linear-gradient(180deg, rgba(29, 28, 45, 1) 0%, rgba(73, 71, 101, 1) 100%);
+	background: var(--bg);
+	/* background: linear-gradient(180deg, rgba(29, 28, 45, 1) 0%, rgba(73, 71, 101, 1) 100%); */
 	background-size: cover;
 	background-attachment: fixed;
-	color: var(--dmt-cyan);
+	color: var(--normal);
 	margin: 0 !important;
 	@apply select-none max-h-screen;
 }
 
-html {
-	margin: 0 !important;
+.dark\:prose-dark:is(.dark *) {
+	--tw-prose-bullets: theme('colors.slate.500');
+	--tw-prose-bold: theme('colors.slate.200');
+	--tw-prose-links: theme('colors.white');
+	--tw-prose-headings: theme('colors.slate.200');
+	--tw-prose-code: theme('colors.slate.200');
 }
+.dark\:prose-dark:is(.dark *) {
+	color: theme('colors.slate.400');
+	--tw-prose-lead: theme('colors.slate.400');
+}
+.dark\:prose-dark:is(.dark *) a {
+	text-decoration: none;
+	font-weight: 600;
+	border-bottom: 1px solid var(--primary);
+}
+.dark\:prose-dark:is(.dark *) a:hover,
+.dark\:prose-dark:is(.dark *) a:active {
+	border-bottom: 2px solid var(--primary);
+}
+
 /* width */
 ::-webkit-scrollbar {
 	width: 5px;
@@ -24,12 +57,12 @@ html {
 
 /* Track */
 ::-webkit-scrollbar-track {
-	@apply bg-slate-800 rounded;
+	@apply bg-[--imp] rounded;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	@apply bg-slate-500 rounded;
+	@apply bg-[--normal] rounded;
 }
 
 /* Handle on hover */
@@ -38,10 +71,13 @@ html {
 }
 
 .btn {
-	@apply p-2 shadow-sm rounded-md hover:opacity-80 hover:shadow-none cursor-pointer;
+	@apply p-2 rounded-md hover:opacity-80 hover:shadow-none cursor-pointer;
 }
 .btn:active {
 	transform: scale(0.9);
+}
+.link-border {
+	@apply border text-[--normal] border-[--normal] active:text-[--primary] active:border-[--primary] lg:hover:text-[--primary] lg:hover:border-[--primary];
 }
 .fluid {
 	max-width: 100%;
