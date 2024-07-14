@@ -35,6 +35,7 @@ body {
 	--tw-prose-links: theme('colors.white');
 	--tw-prose-headings: theme('colors.slate.200');
 	--tw-prose-code: theme('colors.slate.200');
+	--tw-prose-quotes: theme('colors.slate.200');
 }
 .dark\:prose-dark:is(.dark *) {
 	color: theme('colors.slate.400');
