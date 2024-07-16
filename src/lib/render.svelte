@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	// import { base } from '$app/paths';
 	import { getHTML, timeDelta } from './utils';
 
-	export let content: string;
-	export let cover: string;
-	export let title: string;
-	export let contentType: 'markdown' | 'html' = 'markdown';
-	export let date = undefined as unknown as number;
+	type Props = {
+		content: string;
+		cover: string;
+		title: string;
+		contentType: 'markdown' | 'html';
+		date?: number;
+	};
 
-	export let codeStyle = '/hljs/github-dark.css';
+	let { content = '', cover = '', title = '', contentType = 'markdown', date }: Props = $props();
 
-	let htmlContent = '';
+	let htmlContent = $state('');
 
-	$: getHTML(content).then((html) => {
-		htmlContent = html;
+	$effect(() => {
+		getHTML(content).then((html) => {
+			htmlContent = html;
+		});
 	});
 </script>
-
-<svelte:head>
-	<link rel="stylesheet" href={base + codeStyle} />
-</svelte:head>
 
 <div class="w-full h-full flex flex-col gap-4 overflow-y-auto pb-20">
 	<h1 class="text-5xl sm:text-6xl font-bold text-[--imp]">{title}</h1>
@@ -39,6 +39,3 @@
 		{/if}
 	</div>
 </div>
-
-<style>
-</style>

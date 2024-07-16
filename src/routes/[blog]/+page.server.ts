@@ -10,6 +10,7 @@ export const load: PageServerLoad = async ({ url }) => {
 			?.match(/[\w-]+/)?.[0] ?? '';
 	const body = await db.get(pathname);
 	if (!body) throw error(404, "Sorry! Blog does't exist.");
-	const { content, ...rest } = body;
+	const { _content, ...rest } = body;
+	rest.html = rest.html.replaceAll("<pre>", '<pre class="not-prose">');
 	return rest;
 };

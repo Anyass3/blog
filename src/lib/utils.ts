@@ -128,7 +128,8 @@ export const truncate = (text = '', max = 20) => {
 export const getHTML = async (content: string) => {
 	const { lqEngine } = await import('./liquid');
 	const rendered = lqEngine.parseAndRenderSync(content);
-	return Markdown(rendered);
+	const markdown: string = Markdown(rendered)
+	return markdown.replaceAll("<pre>", '<pre class="not-prose">');
 };
 
 

@@ -5,16 +5,30 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
+
+		<link class="code-style" />
 		<script>
 			window.setColorScheme = function () {
+				let codeStyle = '%sveltekit.assets%/hljs/foundation.css';
+
 				if (
 					localStorage.theme === 'dark' ||
 					(!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
 				) {
 					document.documentElement.classList.add('dark');
+
+					codeStyle = '%sveltekit.assets%/hljs/night-owl.css';
 				} else {
 					document.documentElement.classList.remove('dark');
 				}
+
+				const codeStyleLink = document.head.getElementsByClassName('code-style')[0];
+
+				if (codeStyleLink) {
+					codeStyleLink.rel = 'stylesheet';
+					codeStyleLink.href = codeStyle;
+				}
+				// <link rel="stylesheet" href={base + codeStyle} />
 			};
 			window.setColorScheme();
 		</script>

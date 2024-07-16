@@ -80,6 +80,9 @@ body {
 .link-border {
 	@apply border text-[--normal] border-[--normal] active:text-[--primary] active:border-[--primary] lg:hover:text-[--primary] lg:hover:border-[--primary];
 }
+.group-link-border {
+	@apply border text-[--normal] border-[--normal] active:text-[--primary] active:border-[--primary] lg:hover:text-[--primary] lg:hover:border-[--primary] group-active:text-[--primary] group-active:border-[--primary] lg:group-hover:text-[--primary] lg:group-hover:border-[--primary];
+}
 .fluid {
 	max-width: 100%;
 	height: auto;

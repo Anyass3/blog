@@ -64,11 +64,11 @@
 		const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
 			? 'dark'
 			: 'light';
-		let colorScheme = scheme || localStorage.getItem('colorScheme') || systemTheme;
+		scheme = scheme || localStorage.getItem('colorScheme') || systemTheme;
 		// if colorScheme is not light or dark, set it to system theme
-		if (colorScheme !== 'light' && colorScheme !== 'dark') colorScheme = systemTheme;
+		if (scheme !== 'light' && scheme !== 'dark') scheme = systemTheme;
 
-		localStorage.setItem('theme', colorScheme);
+		localStorage.setItem('theme', scheme);
 		getWindow().setColorScheme();
 	};
 

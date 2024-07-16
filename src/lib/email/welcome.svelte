@@ -10,8 +10,8 @@
 		'-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif';
 
 	const main = {
-		backgroundColor: 'rgb(29, 28, 45)',
-		color: '#29b3bf'
+		backgroundColor: 'white',
+		color: '#64748b'
 	};
 
 	const container = {
@@ -35,9 +35,9 @@
 
 	const button = {
 		fontFamily,
-		backgroundColor: '#31e5c1',
+		backgroundColor: '#0ea5e9',
 		borderRadius: '3px',
-		color: 'green',
+		color: '#0f172a',
 		fontSize: '16px',
 		textDecoration: 'none',
 		textAlign: 'center' as const,
@@ -51,7 +51,7 @@
 
 	const footer = {
 		fontFamily,
-		color: '#58e288',
+		color: '#64748b',
 		fontSize: '12px'
 	};
 
